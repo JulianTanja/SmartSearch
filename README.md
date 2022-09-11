@@ -8,14 +8,10 @@ security_ID. If users would like to access a certain data row, they would have t
 the security_ID. 
 
 
-How we built it:
+##How we built it:
 React for the front end and Node.js and Typescript for the backend.
 
-
-## Accomplishments that we're proud of
-It took us a long day to figure out the parsing and searching algorithm, but we persisted and were successful. 
-
-## What we learned
+## What we learned:
 It was possible to write code parsed through a big .csv file in only a few lines of code using functions from the csv-parse library. 
 Also, the search engine algorithm function traverses the parsed data in an array, and from whatever the user inputs in the search bar, 
 we sort the matches based on similarity. We also learned how to use Docker to run the frontend and backend simultaneously without any issues. 
