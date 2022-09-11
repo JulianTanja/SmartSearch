@@ -1,12 +1,16 @@
-import React from 'react'
-import { useState } from 'react'
-import "./SearchInput.css"
-import search from "../assets/search.svg"
-import Trie from "./trie";
+import React from 'react';
+import { useState } from 'react';
+import { searchAlgorithm } from  '../../../backend/src/index'
+import "./SearchInput.css";
+import search from "../assets/search.svg";
+//import Trie from "./trie";
 
-const dictionary = {
+
+/*const dictionary = {
   words: ['hello','helium','world','car','carpet','test','this','that','those','working','is']
 }
+
+
 
 const SearchInput = () => {
     const [prefix, setPrefix] = useState('');
@@ -55,7 +59,8 @@ const SearchInput = () => {
     const myFunction = () => {
         console.log("Clicked")
     };
-    
+    */
+
   return (
     <>
     <div className='Search'>
@@ -66,25 +71,22 @@ const SearchInput = () => {
             name='search-bar'
             type="text" 
             id='search-bar'
-            placeholder='Search...'
-            value={prefix}
-            onChange={onChange}
-            onKeyDown={handleKeyDown} />
+            placeholder='Search...' />
+            
 
-            {/* <input 
+            {/*<input 
             type="text"
             name="search-bar"
             id="search-bar2"
-            value={suggestion} /> */}
+             value={suggestion} />*/}
 
         </span>
         
-    <img className='search-icon' src={search} alt="search icon" height="80"/>
-    <button type='submit' className='search-btn' onClick={myFunction}></button>
+      <img className='search-icon' src={search} alt="search icon" height="80"/>
+      <button type='submit' className='search-btn' onClick={myFunction}></button>
     </label>
     </div>
     </>
-  )
-}
+  );
 
 export default SearchInput
