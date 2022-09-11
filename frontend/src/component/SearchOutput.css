@@ -1,0 +1,18 @@
+.Search-output {
+  border: 0.5px solid rgb(106, 104, 104);
+  width: 50%;
+  height: 300px;
+  overflow: hidden;
+  overflow-y: scroll;
+  margin: 0 auto;
+  margin-top: 0.5rem;
+  border-radius: 15px;
+  
+}
+
+.result-text {
+  text-align: left;
+  color: #fff;
+  font-size: 1.5rem;
+  margin: 1rem 4.2rem;
+}

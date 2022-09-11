@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 import "./SearchInput.css"
+import SearchOutput from './SearchOutput'
 import search from "../assets/search.svg"
 import Trie from "./trie";
 
@@ -83,6 +84,7 @@ const SearchInput = () => {
     <button type='submit' className='search-btn' onClick={myFunction}></button>
     </label>
     </div>
+    <SearchOutput />
     </>
   )
 }
