@@ -8,7 +8,7 @@ security_ID. If users would like to access a certain data row, they would have t
 the security_ID. 
 
 
-##How we built it:
+## How we built it:
 React for the front end and Node.js and Typescript for the backend.
 
 ## What we learned:
