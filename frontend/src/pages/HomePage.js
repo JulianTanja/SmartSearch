@@ -1,11 +1,12 @@
 import React from 'react'
 import Navbar from '../component/Navbar'
-import SearchInput from '../component/SearchInput'
+
+import Table from "../component/Table.js"
 
 const HomePage = () => {
   return (
     <>
-      <SearchInput />
+      <Table />
     </>
   )
 }
