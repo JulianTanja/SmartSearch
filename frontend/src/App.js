@@ -1,70 +1,251 @@
 import './App.css';
 import SearchInput from './component/SearchInput';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Navbar from './component/Navbar';
 import { Routes, Route, Link } from "react-router-dom";
 import Result from './pages/Result';
 import HomePage from './pages/HomePage';
-import path from 'path';
-import fs from 'fs';
-import { parse } from 'csv-parse'
 
-let itemMap = new Map();
-let SECURITY_ID = [];
-let CUSIP = [];
-let SEDOL = [];
-let ISIN = [];
-let RIC = [];
-let BLOOMBERG = [];
-let BBG = [];
-let SYMBOL = [];
-let ROOT_SYMBOL = [];
-let BB_YELLOW = [];
-let SPN = [];
+const App = () => {
+  const { search } = window.location;
+  const query = new URLSearchParams(search).get('s');
+  const [searchQuery, setSearchQuery] = useState(query || '');
+  const itemMap = new Map();
+  let SECURITY_ID = [];
+  let CUSIP = [];
+  let SEDOL = [];
+  let ISIN = [];
+  let RIC = [];
+  let BLOOMBERG = [];
+  let BBG = [];
+  let SYMBOL = [];
+  let ROOT_SYMBOL = [];
+  let BB_YELLOW = [];
+  let SPN = [];
 
-(() => {
-    const csvFilePath = path.resolve(__dirname, '../Securities.csv');
-    const headers = ['security_id', 'cusip', 'sedol', 'isin', 'ric', 'bloomberg', 'bbg', 'symbol', 'root_symbol', 'bb_yellow', 'spn']
-    const fileContent = fs.readFileSync(csvFilePath, { encoding: 'utf-8' });
+  React.useEffect(() => {
+    fetch(process.env.PUBLIC_URL + "/Securities.csv").then(res => res.text())
+    .then((data) => {
+      data = data.split("\r\n");
 
-    parse(fileContent, {
-        delimiter: ',',
-        columns: headers,
-    }, (error, result) => {
-        if (error) {
-            console.error(error);
-        }
+      //security_id = [0], cusip = [1], sedol = [2], isin = [3], ric = [4], bloomberg = [5], bbg = [6], symbol = [7], root_symbol = [8], bb_yellow = [9], spn = [10]
+      data.forEach(element => {
+        element = element.split(',')
+        SECURITY_ID.push(element[0]);
+        CUSIP.push(element[1]);
+        SEDOL.push(element[2]);
+        ISIN.push(element[3]);
+        RIC.push(element[4]);
+        BLOOMBERG.push(element[5]);
+        BBG.push(element[6]);
+        SYMBOL.push(element[7]);
+        ROOT_SYMBOL.push(element[8]);
+        BB_YELLOW.push(element[9]);
+        SPN.push(element[10]);
+      });
+    }).then(() => {
+      console.log('pushed')
+      itemMap.set('security_id', SECURITY_ID);
+      itemMap.set('cusip', CUSIP);
+      itemMap.set('sedol', SEDOL);
+      itemMap.set('isin', ISIN);
+      itemMap.set('ric', RIC);
+      itemMap.set('bloomberg', BLOOMBERG);
+      itemMap.set('bbg', BBG);
+      itemMap.set('symbol', SYMBOL);
+      itemMap.set('root_symbol', ROOT_SYMBOL);
+      itemMap.set('bb_yellow', BB_YELLOW);
+      itemMap.set('spn', SPN);
+    })
+    function getData(keyword, itemMap) {
+      console.log(itemMap);
+      let index = 0;
+      let array = [];
+      if (itemMap.get('security_id').indexOf(keyword) === -1) {
+        index = itemMap.get('security_id').indexOf(keyword);
+        console.log(index);
+        array.push(itemMap.get('security_id')[index]);
+        array.push(itemMap.get('cusip')[index]);
+        array.push(itemMap.get('sedol')[index]);
+        array.push(itemMap.get('isin')[index]);
+        array.push(itemMap.get('ric')[index]);
+        array.push(itemMap.get('bloomberg')[index]);
+        array.push(itemMap.get('bbg')[index]);
+        array.push(itemMap.get('symbol')[index]);
+        array.push(itemMap.get('root_symbol')[index]);
+        array.push(itemMap.get('bb_yellow')[index]);
+        array.push(itemMap.get('spn')[index]);
+        return array;
+  
+      }
+      if (itemMap.get('cusip').indexOf(keyword) !== -1) {
+        index = itemMap.get('cusip').indexOf(keyword);
+        console.log(index);
+        array.push(itemMap.get('security_id')[index]);
+        array.push(itemMap.get('cusip')[index]);
+        array.push(itemMap.get('sedol')[index]);
+        array.push(itemMap.get('isin')[index]);
+        array.push(itemMap.get('ric')[index]);
+        array.push(itemMap.get('bloomberg')[index]);
+        array.push(itemMap.get('bbg')[index]);
+        array.push(itemMap.get('symbol')[index]);
+        array.push(itemMap.get('root_symbol')[index]);
+        array.push(itemMap.get('bb_yellow')[index]);
+        array.push(itemMap.get('spn')[index]);
+        return array;
+      }
+      if (itemMap.get('sedol').indexOf(keyword) !== -1) {
+        index = itemMap.get('sedol').indexOf(keyword);
+        console.log(index);
+        array.push(itemMap.get('security_id')[index]);
+        array.push(itemMap.get('cusip')[index]);
+        array.push(itemMap.get('sedol')[index]);
+        array.push(itemMap.get('isin')[index]);
+        array.push(itemMap.get('ric')[index]);
+        array.push(itemMap.get('bloomberg')[index]);
+        array.push(itemMap.get('bbg')[index]);
+        array.push(itemMap.get('symbol')[index]);
+        array.push(itemMap.get('root_symbol')[index]);
+        array.push(itemMap.get('bb_yellow')[index]);
+        array.push(itemMap.get('spn')[index]);
+        return array;
+      }
+      if (itemMap.get('isin').indexOf(keyword) !== -1) {
+        index = itemMap.get('isin').indexOf(keyword);
+        console.log(index);
+        array.push(itemMap.get('security_id')[index]);
+        array.push(itemMap.get('cusip')[index]);
+        array.push(itemMap.get('sedol')[index]);
+        array.push(itemMap.get('isin')[index]);
+        array.push(itemMap.get('ric')[index]);
+        array.push(itemMap.get('bloomberg')[index]);
+        array.push(itemMap.get('bbg')[index]);
+        array.push(itemMap.get('symbol')[index]);
+        array.push(itemMap.get('root_symbol')[index]);
+        array.push(itemMap.get('bb_yellow')[index]);
+        array.push(itemMap.get('spn')[index]);
+        return array;
+      }
+      if (itemMap.get('ric').indexOf(keyword) !== -1) {
+        index = itemMap.get('ric').indexOf(keyword);
+        console.log(index);
+        array.push(itemMap.get('security_id')[index]);
+        array.push(itemMap.get('cusip')[index]);
+        array.push(itemMap.get('sedol')[index]);
+        array.push(itemMap.get('isin')[index]);
+        array.push(itemMap.get('ric')[index]);
+        array.push(itemMap.get('bloomberg')[index]);
+        array.push(itemMap.get('bbg')[index]);
+        array.push(itemMap.get('symbol')[index]);
+        array.push(itemMap.get('root_symbol')[index]);
+        array.push(itemMap.get('bb_yellow')[index]);
+        array.push(itemMap.get('spn')[index]);
+        return array;
+      }
+      if (itemMap.get('bloomberg').indexOf(keyword) !== -1) {
+        index = itemMap.get('bloomberg').indexOf(keyword);
+        console.log(index);
+        array.push(itemMap.get('security_id')[index]);
+        array.push(itemMap.get('cusip')[index]);
+        array.push(itemMap.get('sedol')[index]);
+        array.push(itemMap.get('isin')[index]);
+        array.push(itemMap.get('ric')[index]);
+        array.push(itemMap.get('bloomberg')[index]);
+        array.push(itemMap.get('bbg')[index]);
+        array.push(itemMap.get('symbol')[index]);
+        array.push(itemMap.get('root_symbol')[index]);
+        array.push(itemMap.get('bb_yellow')[index]);
+        array.push(itemMap.get('spn')[index]);
+        return array;
+      }
+      if (itemMap.get('bbg').indexOf(keyword) !== -1) {
+        index = itemMap.get('bbg').indexOf(keyword);
+        console.log(index);
+        array.push(itemMap.get('security_id')[index]);
+        array.push(itemMap.get('cusip')[index]);
+        array.push(itemMap.get('sedol')[index]);
+        array.push(itemMap.get('isin')[index]);
+        array.push(itemMap.get('ric')[index]);
+        array.push(itemMap.get('bloomberg')[index]);
+        array.push(itemMap.get('bbg')[index]);
+        array.push(itemMap.get('symbol')[index]);
+        array.push(itemMap.get('root_symbol')[index]);
+        array.push(itemMap.get('bb_yellow')[index]);
+        array.push(itemMap.get('spn')[index]);
+        return array;
+      }
+      if (itemMap.get('symbol').indexOf(keyword) !== -1) {
+        index = itemMap.get('symbol').indexOf(keyword);
+        console.log(index);
+        array.push(itemMap.get('security_id')[index]);
+        array.push(itemMap.get('cusip')[index]);
+        array.push(itemMap.get('sedol')[index]);
+        array.push(itemMap.get('isin')[index]);
+        array.push(itemMap.get('ric')[index]);
+        array.push(itemMap.get('bloomberg')[index]);
+        array.push(itemMap.get('bbg')[index]);
+        array.push(itemMap.get('symbol')[index]);
+        array.push(itemMap.get('root_symbol')[index]);
+        array.push(itemMap.get('bb_yellow')[index]);
+        array.push(itemMap.get('spn')[index]);
+        return array;
+      }
+      if (itemMap.get('root_symbol').indexOf(keyword) !== -1) {
+        index = itemMap.get('root_symbol').indexOf(keyword);
+        console.log(index);
+        array.push(itemMap.get('security_id')[index]);
+        array.push(itemMap.get('cusip')[index]);
+        array.push(itemMap.get('sedol')[index]);
+        array.push(itemMap.get('isin')[index]);
+        array.push(itemMap.get('ric')[index]);
+        array.push(itemMap.get('bloomberg')[index]);
+        array.push(itemMap.get('bbg')[index]);
+        array.push(itemMap.get('symbol')[index]);
+        array.push(itemMap.get('root_symbol')[index]);
+        array.push(itemMap.get('bb_yellow')[index]);
+        array.push(itemMap.get('spn')[index]);
+        return array;
+      }
+  
+      if (itemMap.get('bb_yellow').indexOf(keyword) !== -1) {
+        index = itemMap.get('bb_yellow').indexOf(keyword);
+        console.log(index);
+        array.push(itemMap.get('security_id')[index]);
+        array.push(itemMap.get('cusip')[index]);
+        array.push(itemMap.get('sedol')[index]);
+        array.push(itemMap.get('isin')[index]);
+        array.push(itemMap.get('ric')[index]);
+        array.push(itemMap.get('bloomberg')[index]);
+        array.push(itemMap.get('bbg')[index]);
+        array.push(itemMap.get('symbol')[index]);
+        array.push(itemMap.get('root_symbol')[index]);
+        array.push(itemMap.get('bb_yellow')[index]);
+        array.push(itemMap.get('spn')[index]);
+        return array;
+      }
+  
+      if (itemMap.get('spn').indexOf(keyword) !== -1) {
+        index = itemMap.get('spn').indexOf(keyword);
+        console.log(index);
+        array.push(itemMap.get('security_id')[index]);
+        array.push(itemMap.get('cusip')[index]);
+        array.push(itemMap.get('sedol')[index]);
+        array.push(itemMap.get('isin')[index]);
+        array.push(itemMap.get('ric')[index]);
+        array.push(itemMap.get('bloomberg')[index]);
+        array.push(itemMap.get('bbg')[index]);
+        array.push(itemMap.get('symbol')[index]);
+        array.push(itemMap.get('root_symbol')[index]);
+        array.push(itemMap.get('bb_yellow')[index]);
+        array.push(itemMap.get('spn')[index]);
+        return array;
+      }
+  
+      return "1"
+    }
 
-        result.forEach((doc) => {
-            SECURITY_ID.push(doc.security_id);
-            CUSIP.push(doc.cusip);
-            SEDOL.push(doc.sedol);
-            ISIN.push(doc.isin);
-            RIC.push(doc.ric);
-            BLOOMBERG.push(doc.bloomberg);
-            BBG.push(doc.bbg);
-            SYMBOL.push(doc.symbol);
-            ROOT_SYMBOL.push(doc.root_symbol);
-            BB_YELLOW.push(doc.bb_yellow);
-            SPN.push(doc.spn);
-        })
-        itemMap.set('security_id', SECURITY_ID);
-        itemMap.set('cusip', CUSIP);
-        itemMap.set('sedol', SEDOL);
-        itemMap.set('isin', ISIN);
-        itemMap.set('ric', RIC);
-        itemMap.set('bloomberg', BLOOMBERG);
-        itemMap.set('bbg', BBG);
-        itemMap.set('symbol', SYMBOL);
-        itemMap.set('root_symbol', ROOT_SYMBOL);
-        itemMap.set('bb_yellow', BB_YELLOW);
-        itemMap.set('spn', SPN);
-        console.log("Result", result);
-        // console.log(searchAlgorithm([], 'BA'));
-    });
-})()
 
-function searchAlgorithm(preference, keyword) {
+    function searchAlgorithm(preference, keyword) {
     let firstArray = itemMap.get(preference[0]);
     let secondArray = itemMap.get(preference[1]);
     let thirdArray = itemMap.get(preference[2]);
@@ -216,186 +397,19 @@ function searchAlgorithm(preference, keyword) {
         return preference;
     }
 }
+  
+  })
 
-export function getData(keyword) {
-    let index = 0;
-    let array = [];
-    if (itemMap.get('security_id').indexOf(keyword) !== -1) {
-        index = itemMap.get('security_id').indexOf(keyword);
-        array.push(itemMap.get('security_id')[index]);
-        array.push(itemMap.get('cusip')[index]);
-        array.push(itemMap.get('sedol')[index]);
-        array.push(itemMap.get('isin')[index]);
-        array.push(itemMap.get('ric')[index]);
-        array.push(itemMap.get('bloomberg')[index]);
-        array.push(itemMap.get('bbg')[index]);
-        array.push(itemMap.get('symbol')[index]);
-        array.push(itemMap.get('root_symbol')[index]);
-        array.push(itemMap.get('bb_yellow')[index]);
-        array.push(itemMap.get('spn')[index]);
-        return array;
+//   const filterPosts = (query) => {
+//     if (!query) {
+//       return null;
+//     }
 
-    }
-    if (itemMap.get('cusip').indexOf(keyword) !== -1) {
-        index = itemMap.get('cusip').indexOf(keyword);
-        array.push(itemMap.get('security_id')[index]);
-        array.push(itemMap.get('cusip')[index]);
-        array.push(itemMap.get('sedol')[index]);
-        array.push(itemMap.get('isin')[index]);
-        array.push(itemMap.get('ric')[index]);
-        array.push(itemMap.get('bloomberg')[index]);
-        array.push(itemMap.get('bbg')[index]);
-        array.push(itemMap.get('symbol')[index]);
-        array.push(itemMap.get('root_symbol')[index]);
-        array.push(itemMap.get('bb_yellow')[index]);
-        array.push(itemMap.get('spn')[index]);
-        return array;
-    }
-    if (itemMap.get('sedol').indexOf(keyword) !== -1) {
-        index = itemMap.get('sedol').indexOf(keyword);
-        array.push(itemMap.get('security_id')[index]);
-        array.push(itemMap.get('cusip')[index]);
-        array.push(itemMap.get('sedol')[index]);
-        array.push(itemMap.get('isin')[index]);
-        array.push(itemMap.get('ric')[index]);
-        array.push(itemMap.get('bloomberg')[index]);
-        array.push(itemMap.get('bbg')[index]);
-        array.push(itemMap.get('symbol')[index]);
-        array.push(itemMap.get('root_symbol')[index]);
-        array.push(itemMap.get('bb_yellow')[index]);
-        array.push(itemMap.get('spn')[index]);
-        return array;
-    }
-    if (itemMap.get('isin').indexOf(keyword) !== -1) {
-        index = itemMap.get('isin').indexOf(keyword);
-        array.push(itemMap.get('security_id')[index]);
-        array.push(itemMap.get('cusip')[index]);
-        array.push(itemMap.get('sedol')[index]);
-        array.push(itemMap.get('isin')[index]);
-        array.push(itemMap.get('ric')[index]);
-        array.push(itemMap.get('bloomberg')[index]);
-        array.push(itemMap.get('bbg')[index]);
-        array.push(itemMap.get('symbol')[index]);
-        array.push(itemMap.get('root_symbol')[index]);
-        array.push(itemMap.get('bb_yellow')[index]);
-        array.push(itemMap.get('spn')[index]);
-        return array;
-    }
-    if (itemMap.get('ric').indexOf(keyword) !== -1) {
-        index = itemMap.get('ric').indexOf(keyword);
-        array.push(itemMap.get('security_id')[index]);
-        array.push(itemMap.get('cusip')[index]);
-        array.push(itemMap.get('sedol')[index]);
-        array.push(itemMap.get('isin')[index]);
-        array.push(itemMap.get('ric')[index]);
-        array.push(itemMap.get('bloomberg')[index]);
-        array.push(itemMap.get('bbg')[index]);
-        array.push(itemMap.get('symbol')[index]);
-        array.push(itemMap.get('root_symbol')[index]);
-        array.push(itemMap.get('bb_yellow')[index]);
-        array.push(itemMap.get('spn')[index]);
-        return array;
-    }
-    if (itemMap.get('bloomberg').indexOf(keyword) !== -1) {
-        index = itemMap.get('bloomberg').indexOf(keyword);
-        array.push(itemMap.get('security_id')[index]);
-        array.push(itemMap.get('cusip')[index]);
-        array.push(itemMap.get('sedol')[index]);
-        array.push(itemMap.get('isin')[index]);
-        array.push(itemMap.get('ric')[index]);
-        array.push(itemMap.get('bloomberg')[index]);
-        array.push(itemMap.get('bbg')[index]);
-        array.push(itemMap.get('symbol')[index]);
-        array.push(itemMap.get('root_symbol')[index]);
-        array.push(itemMap.get('bb_yellow')[index]);
-        array.push(itemMap.get('spn')[index]);
-        return array;
-    }
-    if (itemMap.get('bbg').indexOf(keyword) !== -1) {
-        index = itemMap.get('bbg').indexOf(keyword);
-        array.push(itemMap.get('security_id')[index]);
-        array.push(itemMap.get('cusip')[index]);
-        array.push(itemMap.get('sedol')[index]);
-        array.push(itemMap.get('isin')[index]);
-        array.push(itemMap.get('ric')[index]);
-        array.push(itemMap.get('bloomberg')[index]);
-        array.push(itemMap.get('bbg')[index]);
-        array.push(itemMap.get('symbol')[index]);
-        array.push(itemMap.get('root_symbol')[index]);
-        array.push(itemMap.get('bb_yellow')[index]);
-        array.push(itemMap.get('spn')[index]);
-        return array;
-    }
-    if (itemMap.get('symbol').indexOf(keyword) !== -1) {
-        index = itemMap.get('symbol').indexOf(keyword);
-        array.push(itemMap.get('security_id')[index]);
-        array.push(itemMap.get('cusip')[index]);
-        array.push(itemMap.get('sedol')[index]);
-        array.push(itemMap.get('isin')[index]);
-        array.push(itemMap.get('ric')[index]);
-        array.push(itemMap.get('bloomberg')[index]);
-        array.push(itemMap.get('bbg')[index]);
-        array.push(itemMap.get('symbol')[index]);
-        array.push(itemMap.get('root_symbol')[index]);
-        array.push(itemMap.get('bb_yellow')[index]);
-        array.push(itemMap.get('spn')[index]);
-        return array;
-    }
-    if (itemMap.get('root_symbol').indexOf(keyword) !== -1) {
-        index = itemMap.get('root_symbol').indexOf(keyword);
-        array.push(itemMap.get('security_id')[index]);
-        array.push(itemMap.get('cusip')[index]);
-        array.push(itemMap.get('sedol')[index]);
-        array.push(itemMap.get('isin')[index]);
-        array.push(itemMap.get('ric')[index]);
-        array.push(itemMap.get('bloomberg')[index]);
-        array.push(itemMap.get('bbg')[index]);
-        array.push(itemMap.get('symbol')[index]);
-        array.push(itemMap.get('root_symbol')[index]);
-        array.push(itemMap.get('bb_yellow')[index]);
-        array.push(itemMap.get('spn')[index]);
-        return array;
-    }
+//     return searchAlgorithm([], query)
+// };
+console.log(itemMap.get('security_id'));
+console.log(searchQuery, itemMap);
 
-    if (itemMap.get('bb_yellow').indexOf(keyword) !== -1) {
-        index = itemMap.get('bb_yellow').indexOf(keyword);
-        array.push(itemMap.get('security_id')[index]);
-        array.push(itemMap.get('cusip')[index]);
-        array.push(itemMap.get('sedol')[index]);
-        array.push(itemMap.get('isin')[index]);
-        array.push(itemMap.get('ric')[index]);
-        array.push(itemMap.get('bloomberg')[index]);
-        array.push(itemMap.get('bbg')[index]);
-        array.push(itemMap.get('symbol')[index]);
-        array.push(itemMap.get('root_symbol')[index]);
-        array.push(itemMap.get('bb_yellow')[index]);
-        array.push(itemMap.get('spn')[index]);
-        return array;
-    }
-
-    if (itemMap.get('spn').indexOf(keyword) !== -1) {
-        index = itemMap.get('spn').indexOf(keyword);
-        array.push(itemMap.get('security_id')[index]);
-        array.push(itemMap.get('cusip')[index]);
-        array.push(itemMap.get('sedol')[index]);
-        array.push(itemMap.get('isin')[index]);
-        array.push(itemMap.get('ric')[index]);
-        array.push(itemMap.get('bloomberg')[index]);
-        array.push(itemMap.get('bbg')[index]);
-        array.push(itemMap.get('symbol')[index]);
-        array.push(itemMap.get('root_symbol')[index]);
-        array.push(itemMap.get('bb_yellow')[index]);
-        array.push(itemMap.get('spn')[index]);
-        return array;
-    }
-
-}
-
-const App = () => {
-  const { search } = window.location;
-  const query = new URLSearchParams(search).get('s');
-  const [searchQuery, setSearchQuery] = useState(query || '');
-  // let filteredPosts = filterPosts(query);
 
   return (
 
@@ -405,6 +419,11 @@ const App = () => {
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
       />
+      {/* <ul>
+        {getData(query).map((post) => (
+          <li key = {post[0]}>{post[1]}</li>
+        ))}
+      </ul> */}
 
       <div id='page-body'></div>
       <Routes>

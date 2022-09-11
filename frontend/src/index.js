@@ -1,4 +1,4 @@
-import 'array.prototype.fill';
+import 'react-app-polyfill/stable';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter as Router } from 'react-router-dom';

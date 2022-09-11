@@ -6,7 +6,7 @@ import Table from "../component/Table.js"
 const HomePage = () => {
   return (
     <>
-      <Table />
+      {/* <Table /> */}
     </>
   )
 }
