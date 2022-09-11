@@ -5,7 +5,7 @@ import SearchInput from '../component/SearchInput'
 const HomePage = () => {
   return (
     <>
-    <SearchInput />
+      <SearchInput />
     </>
   )
 }

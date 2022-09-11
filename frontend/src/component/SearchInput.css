@@ -8,7 +8,6 @@
     box-shadow: 10px 5px 5px red;
 } */
 
-
 .Search {
     display: flex;
     align-items: center;
@@ -23,7 +22,7 @@
     justify-content: center;
 }
 .search-icon {
-    height: 40px;
+    height: 30px;
     position: absolute;
     margin-left: 23%;
     position: fixed;
@@ -37,19 +36,21 @@
     border: 0.5px solid rgb(106, 104, 104);
     border-radius: 15px;
     padding: 5px;
-    box-shadow: 10px 5px 5px red;
+    box-shadow: 0px 0px 5px 2.5px #ED213A;
 }
 
 input {
-    background-color: black;
+    background-color: transparent;
     border: none;
     height: 40px;
     font-size: 1.5rem;
     width: 85%;
     color: white;
 }
+
 input:focus{
     outline: none;
+    
 }
 
 .search-btn {

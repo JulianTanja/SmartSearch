@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 import "./SearchInput.css"
-import search from "../assets/search.png"
+import search from "../assets/search.svg"
 import Trie from "./trie";
 
 const dictionary = {
@@ -79,7 +79,7 @@ const SearchInput = () => {
 
         </span>
         
-    <img className='search-icon' src={search} alt="search icon"/>
+    <img className='search-icon' src={search} alt="search icon" height="80"/>
     <button type='submit' className='search-btn' onClick={myFunction}></button>
     </label>
     </div>
