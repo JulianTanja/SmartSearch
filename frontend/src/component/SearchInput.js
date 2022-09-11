@@ -71,11 +71,11 @@ const SearchInput = () => {
             onChange={onChange}
             onKeyDown={handleKeyDown} />
 
-            <input 
+            {/* <input 
             type="text"
             name="search-bar"
             id="search-bar2"
-            value={suggestion} />
+            value={suggestion} /> */}
 
         </span>
         
